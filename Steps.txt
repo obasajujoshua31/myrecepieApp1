@@ -1,0 +1,6 @@
+configure route
+do register route
+do sign in route and authenticate user using passport
+do dashboard route, welcoming user and showing recipes from food2fork
+show logout
+completes all the rendering for register page, login  and dashboard using pug and bootstrap as the styles framework. 
