@@ -1,44 +1,36 @@
 const express = require("express");
 const path = require("path");
+const cookieParser = require('cookie-parser');
 const { User } = require("./models");
+const passport = require('passport');
+require('./passport-init')(passport);
+const session = require('express-session');
 const app = express();
+
+//configure routers
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users')(passport);
 
 // initialize middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
- const user = User.build({
- 	firstName: 'Joshua',
-    lastName: 'Obasaju',
-    email: 'obasajujoshua@yahoo.com',
-    password: '123456',
-    createdAt: new Date()
- });
- // user.save().then((results)=>{
- // 	console.log("results: ", results);
- // })
-// .catch(err=>{
-// 	console.error("error found: ", err);
-// })
+//initialise passport session
+app.use(session({
+	secret: 'cat',
+	saveUninitialized: false,
+	resave: false,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
 
-app.get("/", (req, res) => {
- User.update(
- 	{email: 'obasajujoshua31@gmail.com', password: 'electrical'},
- 	
- 	{ returning: true, 
- 		where: {
- 			id: 2
- 		}
- 	})
- 	.then(([rowupdated, updatedBook]) => {
-	res.json(updatedBook);
-})
-.catch(err=>{
-	console.error("error found: ", err);
-})
-});
+
+
 
 const port = 4000;
 app.listen(port, () => {

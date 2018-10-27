@@ -1,4 +1,4 @@
-configure route
+configure route - express-validators, passport, passport-local, sequelize, pg, bcrypt, express-session
 do register route
 do sign in route and authenticate user using passport
 do dashboard route, welcoming user and showing recipes from food2fork
