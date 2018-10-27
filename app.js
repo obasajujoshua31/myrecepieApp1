@@ -19,8 +19,8 @@ app.use(cookieParser());
 //initialise passport session
 app.use(session({
 	secret: 'cat',
-	saveUninitialized: false,
-	resave: false,
+	saveUninitialized: true,
+	resave: true,
 }));
 app.use(passport.initialize());
 app.use(passport.session());
