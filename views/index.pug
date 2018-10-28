@@ -1,0 +1,8 @@
+extend layout 
+
+block content
+	div.row
+		each item in recipe
+			div.col-md-4
+				img(src=item.image_url).img-thumbnail
+				p= item.title

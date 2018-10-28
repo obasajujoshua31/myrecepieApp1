@@ -16,10 +16,12 @@ router.get("/", isLoggedIn, (req, res, next) => {
       "https://www.food2fork.com/api/search?key=6f1f25b1710aebcbfb0c213701a4fa30&q=shredded%20chicken&count=5"
     )
     .then(results => {
-      res.json(results.data);
-    })
+        res.render('index', {
+          recipe : results.data.recipes
+        })
+      })
     .catch(err => {
-      res.json(err);
+      console.error("error: ", err);
     });
 });
 

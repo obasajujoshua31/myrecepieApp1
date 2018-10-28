@@ -1,0 +1,17 @@
+extend layout 
+
+block content
+	if errors
+		each error in errors
+			p.text-danger error
+	
+	div.form__wrapper
+		h2 Please Register Here 
+		form(action="/users/signup" method ="POST")
+			input(type="text" placeholder ="Your First name" name = "firstName" class="form-control")
+			input(type="text" placeholder ="Your Last name" name = "lastName" class="form-control")
+			input(type="email" placeholder ="yourname@example.com" name = "email" class="form-control")
+			input(type="password" placeholder ="Enter your password" name = "password").form-control
+			br
+			button(type ="submit").btn.btn-primary.form-control Signup
+		a(href="/users/login").btn.btn-primary Already has an account

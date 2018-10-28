@@ -17,14 +17,12 @@ const encrypt = (pass) => {
 module.exports = function(passport){
 
 router.get('/', (req, res, next) => {
-res.json({
-	message: 'welcome to the user page'
-})
 
+	res.redirect('/');
 });
 
 router.get('/signup', (req, res, next)=>{
-		res.send("Please signup");
+		res.render('signup');
 
 });
 
@@ -58,7 +56,10 @@ router.post('/signup',
 		const errors = validationResult(req);
 
 	if(!errors.isEmpty()){
-	return res.json({errors: errors.array()})
+
+		res.render('signup',{
+			errors: errors.array()
+		})
 	} 
 	const { firstName, lastName, email, password } = req.body;
 		
@@ -76,16 +77,27 @@ router.post('/signup',
 	}	
 )
 router.get('/login', (req, res, next) => {
-	res.json({
-		message: 'please sign in'
+	res.render('login', {
+		errors: req.flash('error')
 	})
+	// res.json({
+	// 	message: 'please sign in',
+	// 	error: 		req.flash('error')
+	// })
 })
 
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/users/login'
+    failureRedirect: '/users/login',
+    failureFlash:  true
 }), function(req, res){
     console.log("hey");
+})
+
+router.get('/logout', (req, res, next) => {
+req.logout();
+res.redirect('/users/login');
+
 })
 
     return router;

@@ -30,7 +30,7 @@ module.exports = passport => {
         }
       })
         .then(user => {
-          if (user.firstName === undefined) {
+          if (!user) {
             return done(null, false, { message: "Incorrect Username." });
           }
           if (!isMatchDbPassword(password, user.password)) {
